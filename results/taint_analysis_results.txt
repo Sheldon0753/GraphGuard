@@ -1,0 +1,146 @@
+
+======================================================================
+GRAPHGUARD TAINT ANALYSIS REPORT
+======================================================================
+
+[1] TAINT SOURCES FOUND (User Input):
+----------------------------------------------------------------------
+   📥 scanf() at line 12
+      Code: scanf("%99s", name);
+   📥 gets() at line 13
+      Code: gets(input);
+   📥 scanf() at line 13
+      Code: scanf("%99s", file);
+   📥 scanf() at line 14
+      Code: scanf("%d", &user_size);
+
+[2] TAINT FLOW ANALYSIS (Source → Variable → Sink):
+----------------------------------------------------------------------
+
+   ⚠️  VULNERABILITY #1:
+      📥 SOURCE: scanf() at line 13
+         Code: scanf("%99s", file);
+      🟡 TAINTED VARIABLE: 'file'
+      💥 SINK: sprintf() at line 7
+         Code: sprintf(command, "cat %s", filename);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #2:
+      📥 SOURCE: scanf() at line 13
+         Code: scanf("%99s", file);
+      🟡 TAINTED VARIABLE: 'filename'
+      💥 SINK: sprintf() at line 6
+         Code: sprintf(message, "Welcome, %s!", username);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #3:
+      📥 SOURCE: scanf() at line 13
+         Code: scanf("%99s", file);
+      🟡 TAINTED VARIABLE: 'file'
+      💥 SINK: sprintf() at line 6
+         Code: sprintf(message, "Welcome, %s!", username);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #4:
+      📥 SOURCE: scanf() at line 12
+         Code: scanf("%99s", name);
+      🟡 TAINTED VARIABLE: 'name'
+      💥 SINK: sprintf() at line 6
+         Code: sprintf(message, "Welcome, %s!", username);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #5:
+      📥 SOURCE: scanf() at line 12
+         Code: scanf("%99s", name);
+      🟡 TAINTED VARIABLE: 'name'
+      💥 SINK: sprintf() at line 7
+         Code: sprintf(command, "cat %s", filename);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #6:
+      📥 SOURCE: scanf() at line 12
+         Code: scanf("%99s", name);
+      🟡 TAINTED VARIABLE: 'username'
+      💥 SINK: sprintf() at line 6
+         Code: sprintf(message, "Welcome, %s!", username);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #7:
+      📥 SOURCE: scanf() at line 12
+         Code: scanf("%99s", name);
+      🟡 TAINTED VARIABLE: 'username'
+      💥 SINK: sprintf() at line 7
+         Code: sprintf(command, "cat %s", filename);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #8:
+      📥 SOURCE: gets() at line 13
+         Code: gets(input);
+      🟡 TAINTED VARIABLE: 'user_input'
+      💥 SINK: strcpy() at line 7
+         Code: strcpy(buffer, user_input);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #9:
+      📥 SOURCE: gets() at line 13
+         Code: gets(input);
+      🟡 TAINTED VARIABLE: 'input'
+      💥 SINK: strcpy() at line 7
+         Code: strcpy(buffer, user_input);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+   ⚠️  VULNERABILITY #10:
+      📥 SOURCE: scanf() at line 13
+         Code: scanf("%99s", file);
+      🟡 TAINTED VARIABLE: 'filename'
+      💥 SINK: sprintf() at line 7
+         Code: sprintf(command, "cat %s", filename);
+      ⚠️  RISK: HIGH - Untrusted data reaches dangerous operation
+      Path length: 8 steps
+
+
+[3] PATTERN-BASED DETECTION (Baseline Comparison):
+----------------------------------------------------------------------
+   Pattern-based would flag ALL 5 dangerous function calls:
+   (Regardless of whether they receive tainted input)
+
+   ⚠️  sprintf() at line 6
+      Code: sprintf(message, "Welcome, %s!", username);
+   ⚠️  strcpy() at line 7
+      Code: strcpy(buffer, user_input);
+   ⚠️  sprintf() at line 7
+      Code: sprintf(command, "cat %s", filename);
+   ⚠️  system() at line 8
+      Code: system(command);
+   ⚠️  gets() at line 13
+      Code: gets(input);
+
+
+[4] COMPARISON METRICS:
+----------------------------------------------------------------------
+   Taint Analysis Detections: 4 actual vulnerabilities
+   Pattern-Based Detections: 5 flagged functions
+
+   Pattern-Based False Positives: ~1
+   Taint Analysis Precision: 100%
+   Pattern-Based Precision: 80%
+   Improvement: 20 percentage points
+
+======================================================================
+KEY ADVANTAGE OF TAINT ANALYSIS:
+----------------------------------------------------------------------
+✓ Only flags functions that receive ACTUAL untrusted input
+✓ Provides exact data flow path (source → variable → sink)
+✓ Shows line numbers for both source and sink
+✓ Eliminates false positives from safe usage of dangerous functions
+======================================================================
+

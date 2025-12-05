@@ -1,0 +1,10 @@
+# Ignore Fraunhofer CPG library (too large)
+cpg/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore system files
+.DS_Store
+*.swp
