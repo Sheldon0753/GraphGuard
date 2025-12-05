@@ -59,7 +59,7 @@ Vulnerability Report
 ### Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/GraphGuard.git
+git clone https://github.com/Sheldon0753/GraphGuard.git
 cd GraphGuard
 
 ###Step 2: Start Neo4j Database
