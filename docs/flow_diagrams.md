@@ -1,4 +1,5 @@
 Diagram 1: Buffer Overflow via strcpy (CWE-121)
+
 mermaidflowchart TD
     A[SOURCE: gets input<br/>Line 13<br/>vuln_buffer_overflow_strcpy.c<br/>Type: Unbounded User Input] --> B[TAINTED DATA<br/>Variable: input<br/>Status: User-controlled string]
     B --> C[PROPAGATION<br/>Variable: user_input<br/>Function parameter]
@@ -21,6 +22,7 @@ Common Weakness Enumeration: CWE-121
 Attack Scenario: Attacker provides input longer than 64-byte buffer, overwriting adjacent memory and potentially hijacking control flow.
 
 Diagram 2: Command Injection via system (CWE-78)
+
 mermaidflowchart TD
     A[SOURCE: scanf %99s, file<br/>Line 13<br/>vuln_command_injection.c<br/>Type: User-controlled filename] --> B[TAINTED DATA<br/>Variable: file<br/>Status: Unchecked user input]
     B --> C[PROPAGATION<br/>Variable: filename<br/>Function parameter]
@@ -46,6 +48,7 @@ Common Weakness Enumeration: CWE-78
 Attack Scenario: Input like "; rm -rf /" or "| malicious_script.sh" allows execution of arbitrary system commands with application privileges.
 
 Diagram 3: Buffer Overflow via sprintf (CWE-134)
+
 mermaidflowchart TD
     A[SOURCE: scanf %99s, name<br/>Line 12<br/>vuln_buffer_overflow_sprintf.c<br/>Type: Bounded input max 99 chars] --> B[TAINTED DATA<br/>Variable: name<br/>Status: User-controlled string]
     B --> C[PROPAGATION<br/>Variable: username<br/>Function parameter]
@@ -68,6 +71,7 @@ Common Weakness Enumeration: CWE-134
 Attack Scenario: Input exceeding message buffer capacity (accounting for "Welcome, " prefix and "!" suffix) causes buffer overflow, potentially corrupting stack data.
 
 Diagram 4: Comparative Analysis - Pattern-Based vs Taint Analysis
+
 mermaidflowchart LR
     subgraph PATTERN[Pattern-Based Detection]
         P1[Detection Method:<br/>Flag all dangerous function calls]
