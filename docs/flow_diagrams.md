@@ -106,7 +106,15 @@ Developer Value: Complete source-to-sink paths enable faster vulnerability remed
 
 
 Summary: Detected Taint Flows
-Vulnerability TypeSource FunctionSource LineTainted Variable(s)Sink FunctionSink LineCWE IDSeverityBuffer Overflowgets()13input → user_inputstrcpy()7CWE-121CRITICALCommand Injectionscanf()13file → filename → commandsystem()8CWE-78CRITICALFormat Stringscanf()12name → usernamesprintf()6CWE-134HIGHInteger Overflowscanf()14user_size(various)MultipleCWE-190MEDIUM
+## Summary Table
+
+| Vulnerability      | Source          | Tainted Variable     | Sink              | CWE     |
+|--------------------|-----------------|----------------------|-------------------|---------|
+| Buffer Overflow    | gets() line 13  | input → user_input   | strcpy() line 7   | CWE-121 |
+| Command Injection  | scanf() line 13 | file → filename      | system() line 8   | CWE-78  |
+| Format String      | scanf() line 12 | name → username      | sprintf() line 6  | CWE-134 | [web:9][web:10]
+
+
 Total Unique Vulnerabilities Detected: 4
 Total Taint Flow Paths: 10
 Detection Precision: 100%
